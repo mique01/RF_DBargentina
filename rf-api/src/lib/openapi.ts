@@ -80,25 +80,27 @@ export const openApiSpec = {
           tir_pct: { type: ["number", "null"] },
           duration: { type: ["number", "null"] },
           modified_duration: { type: ["number", "null"] },
-          convexity: { type: ["number", "null"] },
-          raw: { type: ["object", "null"], additionalProperties: true },
+          delta_p_mas_100bps: { type: ["number", "null"] },
+          delta_p_menos_100bps: { type: ["number", "null"] },
+          next_payment_date: { type: ["string", "null"], format: "date" },
+          last_payment_date: { type: ["string", "null"], format: "date" },
+          future_cashflows_count: { type: ["integer", "null"] },
+          nominal_units: { type: ["number", "null"] },
           updated_at: { type: ["string", "null"], format: "date-time" }
         },
-        additionalProperties: true
+        additionalProperties: false
       },
       Cashflow: {
         type: "object",
         properties: {
           activo: { type: "string", examples: ["AL30"] },
           fecha: { type: "string", format: "date" },
-          issue_date: { type: ["string", "null"], format: "date" },
           valor_residual: { type: ["number", "null"] },
-          cap_actualizado: { type: ["number", "null"] },
           interes: { type: ["number", "null"] },
           capital: { type: ["number", "null"] },
           cupon: { type: ["number", "null"] },
-          interest_rate: { type: ["number", "null"] },
-          source: { type: ["string", "null"] }
+          source_updated_at: { type: ["string", "null"], format: "date-time" },
+          updated_at: { type: ["string", "null"], format: "date-time" }
         }
       }
     }

@@ -41,14 +41,10 @@ export async function GET(req: Request) {
         select
           activo,
           fecha,
-          issue_date,
           valor_residual,
-          cap_actualizado,
           interes,
           capital,
           cupon,
-          interest_rate,
-          source,
           source_updated_at,
           updated_at
         from rf_cashflows

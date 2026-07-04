@@ -52,8 +52,6 @@ export async function GET(req: Request) {
           c.interes,
           c.cupon,
           c.valor_residual,
-          c.interest_rate,
-          c.source,
           a.tipo_data912,
           a.subasset_class,
           a.nominal_units

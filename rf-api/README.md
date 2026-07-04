@@ -55,13 +55,22 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:3000
 
 Antes de importar datos, ejecutar el SQL de `src/sql/init.sql` en la consola SQL de Neon, o con cualquier cliente Postgres conectado a `DATABASE_URL`.
 
-El SQL crea:
+El SQL crea un modelo liviano:
 
 - `rf_assets`
 - `rf_metrics_latest`
 - `rf_cashflows`
 - indices para filtros frecuentes
-- columnas `raw jsonb` para conservar datos originales
+
+La API acepta los JSON completos de Apps Script, pero solo persiste los campos necesarios para consumir desde sistemas externos.
+
+Si ya tenias una version anterior con columnas pesadas (`raw`, metadata completa, fx, notas, convexity, etc.), ejecutar tambien:
+
+```sql
+\i src/sql/lean_migration.sql
+```
+
+O copiar y ejecutar el contenido de `src/sql/lean_migration.sql` en la consola SQL de Neon.
 
 ## Correr localmente
 
@@ -329,13 +338,38 @@ Todos los imports usan `insert ... on conflict ... do update`.
 
 Si corres dos veces el mismo JSON, no se duplican activos, metricas ni cashflows. Se actualiza `updated_at`.
 
-## Raw data
+## Modelo liviano
 
-El import conserva datos originales para debug y flexibilidad:
+El import descarta datos auxiliares pesados y conserva solo lo necesario:
 
-- `rf_assets.metadata` guarda `instrument.metadata`
-- `rf_metrics_latest.raw` guarda el objeto completo de metricas
-- `rf_cashflows.raw` guarda `cf.raw`; si no existe, guarda el cashflow completo
+Metricas latest:
+
+- `activo`
+- `estado`
+- `px`
+- `tir`
+- `tir_pct`
+- `duration`
+- `modified_duration`
+- `delta_p_mas_100bps`
+- `delta_p_menos_100bps`
+- `subasset_class`
+- `tipo_data912`
+- `next_payment_date`
+- `last_payment_date`
+- `future_cashflows_count`
+- `nominal_units`
+
+Cashflows:
+
+- `activo`
+- `fecha`
+- `valor_residual`
+- `interes`
+- `capital`
+- `cupon`
+
+No se guarda `raw jsonb` en el modelo lean para evitar duplicar informacion y mantener Neon liviano.
 
 ## Runtime Node.js
 

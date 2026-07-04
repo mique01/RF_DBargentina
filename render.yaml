@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: rf-dbargentina
+    runtime: node
+    plan: free
+    rootDir: rf-api
+    buildCommand: pnpm install --frozen-lockfile && pnpm run build
+    startCommand: pnpm start:render
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: IMPORT_SECRET
+        sync: false
+      - key: NEXT_PUBLIC_API_BASE_URL
+        sync: false
+      - key: NODE_VERSION
+        value: 22

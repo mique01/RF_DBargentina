@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "start:render": "next start -p $PORT",
     "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": "22.x"
   },
   "dependencies": {
     "next": "^16.0.0",

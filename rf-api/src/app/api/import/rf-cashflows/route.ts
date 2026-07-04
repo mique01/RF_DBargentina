@@ -83,8 +83,10 @@ export async function POST(req: NextRequest) {
               source,
               sourceUpdatedAt
             );
-            importedDates.push(fecha);
-            cashflowsProcessed += 1;
+            if (fecha) {
+              importedDates.push(fecha);
+              cashflowsProcessed += 1;
+            }
           } catch (error) {
             errors.push({ activo, error: serializeError(error) });
           }

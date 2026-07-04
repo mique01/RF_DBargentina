@@ -355,6 +355,7 @@ Metricas latest:
 - `delta_p_menos_100bps`
 - `subasset_class`
 - `tipo_data912`
+- `priority`
 - `next_payment_date`
 - `last_payment_date`
 - `future_cashflows_count`
@@ -370,6 +371,10 @@ Cashflows:
 - `cupon`
 
 No se guarda `raw jsonb` en el modelo lean para evitar duplicar informacion y mantener Neon liviano.
+
+El orden default de `/api/rf/assets` y `/api/rf/metrics` usa `priority asc nulls last`. Esa prioridad sale del orden del JSON diario de metricas, que viene desde tu hoja ordenada por volumen operado. Asi Neon respeta tu logica de Sheets y no ordena alfabeticamente salvo desempate.
+
+El import de cashflows ignora pagos con `fecha < current_date`. La base queda enfocada en flujos futuros para calendario de pagos de cartera.
 
 ## Runtime Node.js
 

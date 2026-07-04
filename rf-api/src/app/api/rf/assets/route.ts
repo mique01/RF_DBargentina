@@ -22,13 +22,14 @@ export async function GET(req: Request) {
           subasset_class,
           status,
           source,
+          priority,
           nominal_units,
           total_cashflow_records,
           source_updated_at,
           updated_at
         from rf_assets
         ${where}
-        order by activo asc
+        order by priority asc nulls last, activo asc
       `,
       params
     );

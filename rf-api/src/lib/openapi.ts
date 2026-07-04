@@ -64,6 +64,7 @@ export const openApiSpec = {
           },
           status: { type: ["string", "null"] },
           source: { type: ["string", "null"] },
+          priority: { type: ["integer", "null"] },
           nominal_units: { type: ["number", "null"], examples: [100] },
           total_cashflow_records: { type: ["integer", "null"] },
           source_updated_at: { type: ["string", "null"], format: "date-time" },
@@ -85,6 +86,7 @@ export const openApiSpec = {
           next_payment_date: { type: ["string", "null"], format: "date" },
           last_payment_date: { type: ["string", "null"], format: "date" },
           future_cashflows_count: { type: ["integer", "null"] },
+          priority: { type: ["integer", "null"] },
           nominal_units: { type: ["number", "null"] },
           updated_at: { type: ["string", "null"], format: "date-time" }
         },

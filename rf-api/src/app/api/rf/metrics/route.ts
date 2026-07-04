@@ -23,7 +23,7 @@ export async function GET(req: Request) {
   const orderBy =
     tickers.length > 0
       ? `order by array_position($${nextIndex}::text[], activo), activo asc`
-      : "order by activo asc";
+      : "order by priority asc nulls last, activo asc";
 
   try {
     const result = await query(

@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
   let processed = 0;
 
   await withClient(async (client) => {
-    for (const metric of metrics) {
+    for (const [index, metric] of metrics.entries()) {
       const activo = normalizeString(metric.activo);
 
       if (!activo) {
@@ -39,10 +39,14 @@ export async function POST(req: NextRequest) {
           ticker: activo,
           tipo_data912: metric.tipo_data912,
           subasset_class: metric.subasset_class,
+          priority: index + 1,
           nominal_units: metric.nominal_units,
           source_updated_at: metric.updated_at
         });
-        await upsertMetricLatest(client, metric);
+        await upsertMetricLatest(client, {
+          ...metric,
+          priority: index + 1
+        });
         await client.query("commit");
         processed += 1;
       } catch (error) {

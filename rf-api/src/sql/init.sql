@@ -6,6 +6,7 @@ create table if not exists rf_assets (
   subasset_class text,
   status text,
   source text,
+  priority integer,
 
   nominal_units numeric,
   total_cashflow_records integer,
@@ -30,6 +31,7 @@ create table if not exists rf_metrics_latest (
 
   subasset_class text,
   tipo_data912 text,
+  priority integer,
 
   next_payment_date date,
   last_payment_date date,
@@ -62,6 +64,12 @@ on rf_metrics_latest (estado);
 
 create index if not exists idx_rf_metrics_latest_tipo_data912
 on rf_metrics_latest (tipo_data912);
+
+create index if not exists idx_rf_assets_priority
+on rf_assets (priority);
+
+create index if not exists idx_rf_metrics_latest_priority
+on rf_metrics_latest (priority);
 
 create index if not exists idx_rf_cashflows_fecha
 on rf_cashflows (fecha);

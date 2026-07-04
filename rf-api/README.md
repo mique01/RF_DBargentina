@@ -376,6 +376,14 @@ El orden default de `/api/rf/assets` y `/api/rf/metrics` usa `priority asc nulls
 
 El import de cashflows ignora pagos con `fecha < current_date`. La base queda enfocada en flujos futuros para calendario de pagos de cartera.
 
+Para limpiar Neon usando tus JSON acumulados locales:
+
+```bash
+pnpm run clean:neon -- "C:\ruta\RF_ArgentinaDatos.json" "C:\ruta\bond_cashflows.json"
+```
+
+Ese comando borra metricas/activos que ya no esten en `RF_ArgentinaDatos.json`, borra cashflows vencidos, conserva solo activos presentes en `bond_cashflows.json`, y refresca `priority` desde el orden de tu hoja.
+
 ## Runtime Node.js
 
 Todos los Route Handlers que usan Postgres declaran:

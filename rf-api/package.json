@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "start:render": "next start -p $PORT",
+    "clean:neon": "node scripts/clean-neon-from-json.mjs",
     "refresh:priority": "node scripts/refresh-priority-from-json.mjs",
     "typecheck": "tsc --noEmit"
   },

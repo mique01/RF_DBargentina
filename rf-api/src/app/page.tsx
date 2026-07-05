@@ -29,14 +29,6 @@ const endpointGroups = [
     endpoints: [["GET", "/api/rf/cashflows", "Flujos futuros por bono"]]
   },
   {
-    title: "Calendar",
-    endpoints: [
-      ["GET", "/api/rf/calendar", "Agenda global opcional"],
-      ["GET", "/api/rf/calendar/monthly", "Agregado mensual"],
-      ["GET", "/api/rf/upcoming-payments", "Proximos pagos"]
-    ]
-  },
-  {
     title: "Stats",
     endpoints: [["GET", "/api/rf/stats", "Conteos y ultimas actualizaciones"]]
   }
@@ -59,8 +51,8 @@ export default function Home() {
             RF Argentina API <span className="version-pill">v1.0.0</span>
           </h1>
           <p className="hero-copy">
-            API de renta fija argentina con metricas, cashflows, calendario de
-            pagos e importacion a Neon Postgres.
+            API de renta fija argentina con metricas, cashflows por bono e
+            importacion a Neon Postgres.
           </p>
           <nav className="quick-links" aria-label="Links principales">
             {quickLinks.map(([href, label]) => (

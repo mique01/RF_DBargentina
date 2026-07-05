@@ -322,27 +322,6 @@ Respuesta:
 
 Este endpoint es el recomendado para cartera: filtras por los activos que tenes y recibis cada bono con todos sus pagos futuros. No devuelve metadata, `raw`, `source_updated_at` ni filas sueltas mezcladas.
 
-Calendario global:
-
-```bash
-curl "http://localhost:3000/api/rf/calendar?from=2026-07-01&to=2030-12-31"
-curl "http://localhost:3000/api/rf/calendar?from=2026-07-01&to=2026-12-31&tipo_data912=BONDS"
-curl "http://localhost:3000/api/rf/calendar?from=2026-07-01&to=2026-12-31&tickers=AL30,GD30"
-```
-
-Calendario mensual:
-
-```bash
-curl "http://localhost:3000/api/rf/calendar/monthly?from=2026-07-01&to=2030-12-31"
-```
-
-Proximos pagos:
-
-```bash
-curl "http://localhost:3000/api/rf/upcoming-payments?limit=50"
-curl "http://localhost:3000/api/rf/upcoming-payments?tickers=AL30,GD30&limit=20"
-```
-
 Stats:
 
 ```bash
@@ -395,7 +374,7 @@ No se guarda `raw jsonb` en el modelo lean para evitar duplicar informacion y ma
 
 El orden default de `/api/rf/assets` y `/api/rf/metrics` usa `priority asc nulls last`. Esa prioridad sale del orden del JSON diario de metricas, que viene desde tu hoja ordenada por volumen operado. Asi Neon respeta tu logica de Sheets y no ordena alfabeticamente salvo desempate.
 
-El import de cashflows ignora pagos con `fecha < current_date`. La base queda enfocada en flujos futuros para calendario de pagos de cartera.
+El import de cashflows ignora pagos con `fecha < current_date`. La base queda enfocada en flujos futuros por bono para cartera.
 
 Para limpiar Neon usando tus JSON acumulados locales:
 

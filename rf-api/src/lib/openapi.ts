@@ -8,7 +8,7 @@ export const openApiSpec = {
     title: "RF Argentina API",
     version: "1.0.0",
     description:
-      "API de renta fija argentina con metricas, cashflows, calendario de pagos e importacion a Neon Postgres."
+      "API de renta fija argentina con metricas, cashflows por bono e importacion a Neon Postgres."
   },
   servers: [
     {
@@ -22,7 +22,6 @@ export const openApiSpec = {
     { name: "Assets" },
     { name: "Metrics" },
     { name: "Cashflows" },
-    { name: "Calendar" },
     { name: "Stats" }
   ],
   components: {
@@ -251,42 +250,6 @@ export const openApiSpec = {
             }
           }
         }
-      }
-    },
-    "/api/rf/calendar": {
-      get: {
-        tags: ["Calendar"],
-        summary: "Calendario global de pagos",
-        parameters: [
-          { name: "from", in: "query", schema: { type: "string", format: "date" } },
-          { name: "to", in: "query", schema: { type: "string", format: "date" } },
-          { name: "tipo_data912", in: "query", schema: { type: "string" } },
-          { name: "subasset_class", in: "query", schema: { type: "string" } },
-          { name: "tickers", in: "query", schema: { type: "string" } }
-        ],
-        responses: { "200": { description: "Pagos ordenados por fecha" } }
-      }
-    },
-    "/api/rf/calendar/monthly": {
-      get: {
-        tags: ["Calendar"],
-        summary: "Calendario mensual agregado",
-        parameters: [
-          { name: "from", in: "query", schema: { type: "string", format: "date" } },
-          { name: "to", in: "query", schema: { type: "string", format: "date" } }
-        ],
-        responses: { "200": { description: "Totales mensuales" } }
-      }
-    },
-    "/api/rf/upcoming-payments": {
-      get: {
-        tags: ["Calendar"],
-        summary: "Proximos pagos",
-        parameters: [
-          { name: "tickers", in: "query", schema: { type: "string" } },
-          { name: "limit", in: "query", schema: { type: "integer" } }
-        ],
-        responses: { "200": { description: "Proximos pagos" } }
       }
     },
     "/api/import/rf-metrics": {

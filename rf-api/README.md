@@ -296,10 +296,31 @@ Cashflows:
 
 ```bash
 curl "http://localhost:3000/api/rf/cashflows?activo=AL30"
+curl "http://localhost:3000/api/rf/cashflows?tickers=AL30,GD30,TZXD8"
 curl "http://localhost:3000/api/rf/cashflows?activo=AL30&from=2026-07-01"
 curl "http://localhost:3000/api/rf/cashflows?activo=AL30&from=2026-07-01&to=2030-12-31"
-curl "http://localhost:3000/api/rf/cashflows?activo=AL30&only_future=true"
 ```
+
+Respuesta:
+
+```json
+[
+  {
+    "ticker": "AL30",
+    "cashflows": [
+      {
+        "fecha": "2026-07-09",
+        "valor_residual": 64,
+        "interes": 0.26778082191780817,
+        "capital": 8,
+        "cupon": 8.267780821917809
+      }
+    ]
+  }
+]
+```
+
+Este endpoint es el recomendado para cartera: filtras por los activos que tenes y recibis cada bono con todos sus pagos futuros. No devuelve metadata, `raw`, `source_updated_at` ni filas sueltas mezcladas.
 
 Calendario global:
 

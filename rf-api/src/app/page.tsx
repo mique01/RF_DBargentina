@@ -26,12 +26,12 @@ const endpointGroups = [
   },
   {
     title: "Cashflows",
-    endpoints: [["GET", "/api/rf/cashflows", "Pagos por activo y fecha"]]
+    endpoints: [["GET", "/api/rf/cashflows", "Flujos futuros por bono"]]
   },
   {
     title: "Calendar",
     endpoints: [
-      ["GET", "/api/rf/calendar", "Calendario global"],
+      ["GET", "/api/rf/calendar", "Agenda global opcional"],
       ["GET", "/api/rf/calendar/monthly", "Agregado mensual"],
       ["GET", "/api/rf/upcoming-payments", "Proximos pagos"]
     ]

@@ -95,14 +95,21 @@ export const openApiSpec = {
       Cashflow: {
         type: "object",
         properties: {
-          activo: { type: "string", examples: ["AL30"] },
           fecha: { type: "string", format: "date" },
           valor_residual: { type: ["number", "null"] },
           interes: { type: ["number", "null"] },
           capital: { type: ["number", "null"] },
-          cupon: { type: ["number", "null"] },
-          source_updated_at: { type: ["string", "null"], format: "date-time" },
-          updated_at: { type: ["string", "null"], format: "date-time" }
+          cupon: { type: ["number", "null"] }
+        }
+      },
+      CashflowInstrument: {
+        type: "object",
+        properties: {
+          ticker: { type: "string", examples: ["AL30"] },
+          cashflows: {
+            type: "array",
+            items: { $ref: "#/components/schemas/Cashflow" }
+          }
         }
       }
     }
@@ -218,21 +225,27 @@ export const openApiSpec = {
     "/api/rf/cashflows": {
       get: {
         tags: ["Cashflows"],
-        summary: "Cashflows por activo y rango",
+        summary: "Cashflows futuros agrupados por bono",
         parameters: [
           { name: "activo", in: "query", schema: { type: "string" } },
+          {
+            name: "tickers",
+            in: "query",
+            schema: { type: "string" },
+            example: "AL30,GD30"
+          },
           { name: "from", in: "query", schema: { type: "string", format: "date" } },
-          { name: "to", in: "query", schema: { type: "string", format: "date" } },
-          { name: "only_future", in: "query", schema: { type: "boolean" } }
+          { name: "to", in: "query", schema: { type: "string", format: "date" } }
         ],
         responses: {
           "200": {
-            description: "Cashflows",
+            description:
+              "Array de instrumentos. Cada item trae ticker y cashflows limpios desde hoy hasta el final del bono.",
             content: {
               "application/json": {
                 schema: {
                   type: "array",
-                  items: { $ref: "#/components/schemas/Cashflow" }
+                  items: { $ref: "#/components/schemas/CashflowInstrument" }
                 }
               }
             }
